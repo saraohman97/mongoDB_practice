@@ -2,16 +2,16 @@
 
 import { Todo } from "@prisma/client";
 import { Edit, Trash } from "lucide-react";
-import EditTodo from "./edit-todo-modal";
 import { useState } from "react";
 import { changeStatus } from "@/actions/todoactions";
+import EditTodo from "./edit-todo-modal";
 
 interface TodoProps {
   todo: Todo;
 }
 
 const Todo: React.FC<TodoProps> = ({ todo }) => {
-  const [editModal, setEditModal] = useState(true);
+  const [editModal, setEditModal] = useState(false);
 
   return (
     <div className="border-b mb-2 flex items-center justify-between">
@@ -23,13 +23,14 @@ const Todo: React.FC<TodoProps> = ({ todo }) => {
             todo.isCompleted && "bg-orange-300"
           }`}
         />
-      </form>
+        </form>
       <span className={todo.isCompleted ? "line-through text-gray-300" : ""}>
         {todo.title}
       </span>
       <div className="flex items-center gap-2">
         <Edit size={15} onClick={() => setEditModal(true)} />
-        {editModal && <EditTodo todo={todo} />}
+        {editModal && <EditTodo todo={todo} setEditModal={setEditModal} />}
+        {/* <Edit size={15} /> */}
         <Trash size={15} />
       </div>
     </div>
