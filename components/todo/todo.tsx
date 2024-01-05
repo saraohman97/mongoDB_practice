@@ -2,8 +2,8 @@
 
 import { Todo } from "@prisma/client";
 import { Edit, Trash } from "lucide-react";
-import { useState } from "react";
-import { changeStatus } from "@/actions/todoactions";
+import { MouseEventHandler, useState } from "react";
+import { changeStatus, deleteTodo } from "@/actions/todoactions";
 import EditTodo from "./edit-todo-modal";
 
 interface TodoProps {
@@ -31,7 +31,9 @@ const Todo: React.FC<TodoProps> = ({ todo }) => {
         <Edit size={15} onClick={() => setEditModal(true)} />
         {editModal && <EditTodo todo={todo} setEditModal={setEditModal} />}
         {/* <Edit size={15} /> */}
-        <Trash size={15} />
+        <form action={deleteTodo}>
+          <button type="submit" name="inputId" value={todo.id}><Trash size={15} /></button>
+        </form>
       </div>
     </div>
   );
